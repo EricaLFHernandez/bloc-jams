@@ -22,7 +22,7 @@ var createSongRow = function(songNumber, songName, songLength) {
               updatePlayerBarSong();
           } else if (currentlyPlayingSongNumber === songNumber) {
               $(this).html(playButtonTemplate);
-              $('.main-controls . play-pause').html(playerBarPlayButton);
+              $('.main-controls .play-pause').html(playerBarPlayButton);
               currentlyPlayingSongNumber = null;
               currentSongFromAlbum = null;
           }
@@ -83,7 +83,7 @@ var setSong = function(songNumber) {
 };
 
 var getSongNumberCell = function(number) {
-    return $('.song-item-number[data-song-number]"' + number + '"]');
+    return $('.song-item-number[data-song-number="' + number + '"]');
 };
 
 var nextSong = function() {
@@ -122,7 +122,7 @@ var previousSong = function() {
 
     updatePlayerBarSong();
 
-    $('.main-controls .play-pause').html(playerBarPauseButton);
+    $('.main-controls . play-pause').html(playerBarPauseButton);
 
     var $previousSongNumberCell = getSongNumberCell(currentlyPlayingSongNumber);
     var $lastSongNumberCell = getSongNumberCell(lastSongNumber);
