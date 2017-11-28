@@ -16,7 +16,6 @@ var createSongRow = function(songNumber, songName, songLength) {
           if (currentlyPlayingSongNumber !== null) {
               var currentlyPlayingCell = getSongNumberCell(currentlyPlayingSongNumber);
 
-              //currentlyPlayingCell = getSongNumberCell(currentlyPlayingSongNumber);
               currentlyPlayingCell.html(currentlyPlayingSongNumber);
           }
           if (currentlyPlayingSongNumber !== songNumber) {
@@ -56,7 +55,6 @@ var createSongRow = function(songNumber, songName, songLength) {
           if (songNumber !== currentlyPlayingSongNumber) {
               songNumberCell.html(songNumber);
           }
-          // console.log("songNumber type is " + typeof songNumber + "\n and currentlyPlayingSongNumber type is " + typeof currentlyPlayingSongNumber);
       };
 
       $row.find('.song-item-number').click(clickHandler);
@@ -161,6 +159,20 @@ var previousSong = function() {
     $lastSongNumberCell.html(lastSongNumber);
 };
 
+var togglePlayFromPlayerBar = function() {
+    if (currentSoundFile) {
+        if (currentSoundFile.isPaused()) {
+            $(this).html(playerBarPauseButton);
+            getSongNumberCell(currentlyPlayingSongNumber).html(pauseButtonTemplate);
+            currentSoundFile.play();
+        } else {
+            $(this).html(playerBarPlayButton);
+            getSongNumberCell(currentlyPlayingSongNumber).html(playButtonTemplate);
+            currentSoundFile.pause();
+        }
+    }
+};
+
 var updatePlayerBarSong = function() {
     $('.currently-playing .song-name').text(currentSongFromAlbum.title);
     $('.currently-playing .artist-name').text(currentAlbum.artist);
@@ -181,9 +193,11 @@ var currentVolume = 80;
 
 var $previousButton = $('.main-controls .previous');
 var $nextButton = $('.main-controls .next');
+var $playerBarPlayPause = $('.main-controls .play-pause')
 
 $(document).ready(function() {
     setCurrentAlbum(albumPicasso);
     $previousButton.click(previousSong);
     $nextButton.click(nextSong);
+    $playerBarPlayPause.click(togglePlayFromPlayerBar);
 });
